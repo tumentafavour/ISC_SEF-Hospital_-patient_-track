@@ -21,7 +21,7 @@ char status[20]; // "Admitted" or "Discharged"
 
 
 void save_and_exit();
-void load_records();
+void load_fromfile();
 void displplayMenu();
 void adminLogin();
 void registerPatient();
