@@ -1,6 +1,9 @@
 #ifdef HOSPITAL_H
 #define HOSPITAL_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 typedef struct {
     int id;
     char name[50];
@@ -23,9 +26,11 @@ char status[20]; // "Admitted" or "Discharged"
 void save_and_exit();
 void load_fromfile();
 void displplayMenu();
-void adminLogin();
+int adminLogin();
 void registerPatient();
 void viewPatients();
 void searchbyID();
 void updatePatientInfo();
 void dischargePatient();
+
+#endif // HOSPITAL_H 
