@@ -1,4 +1,4 @@
-#ifdef HOSPITAL_H
+#ifndef HOSPITAL_H
 #define HOSPITAL_H
 
 #include <stdio.h>

@@ -1,5 +1,6 @@
 #include "hospital.h"
-void DisplayMenu()
+
+void displayMenu() 
 {
     printf("...Main Menu...\n");
     printf("1. Register patient\n");
