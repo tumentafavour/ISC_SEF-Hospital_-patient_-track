@@ -11,3 +11,17 @@ void displayMenu()
     printf("6. Enter your option");
     printf("7. Save and Exit\n");
 }
+
+//function to handle patient registration
+void registerPatient(); {
+FILE *fp = fopen("patients.dat", "ab");
+if (fp = = NULL)
+    { 
+        printf("Error opening file\n");
+        return;
+                
+            
+     }
+        
+
+}
