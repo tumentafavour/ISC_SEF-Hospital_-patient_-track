@@ -1,5 +1,11 @@
 #include "hospital.h"
 int main() {
-  displayMenu();
-  return 0;
+  // 
+if ((!adminLogin())) {
+    printf("Access denied. Exiting...\n");
+    return 1;
+}
+
+
+
 }

@@ -13,9 +13,9 @@ void displayMenu()
 }
 
 //function to handle patient registration
-void registerPatient(); {
+void registerPatient() {
 FILE *fp = fopen("patients.dat", "ab");
-if (fp = = NULL)
+if (fp == NULL)
     { 
         printf("Error opening file\n");
         return;
@@ -24,4 +24,35 @@ if (fp = = NULL)
      }
         
 
+}
+
+// function to view all patients
+void viewPatients() {
+    FILE *fp = fopen("patients.dat", "rb");
+    if (fp == NULL) {
+        printf("Error opening file\n");
+        return;
+    }
+    
+    Patient patient;
+    while (fread(&patient, sizeof(Patient), 1, fp)) {
+        printf("ID: %d, Name: %s, Age: %d, Diagnosis: %s, Status: %s\n",
+               patient.id, patient.name, patient.age, patient.diagnosis, patient.status);
+    }
+    
+    fclose(fp);
+}
+
+//function for admin login
+int adminLogin() {
+char username[20], password[20];
+printf("Enter admin username: ");
+scanf("%s", username);
+printf("Enter password: ");
+scanf("%s", password);
+if (strcmp(username, "admin") == 0 && strcmp(password, "1234") == 0)
+return 1;else {
+printf("Login failed. Try again.\n");
+return 0;
+}
 }
