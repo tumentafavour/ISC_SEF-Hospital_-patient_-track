@@ -36,7 +36,7 @@ void updatePatientInfo()
     printf("Status: %s\n", patient->status);
 
     // Updating the information
-    printf("\nEnter new information or press 8 to keep current info:\n");
+    printf("\nEnter new information or press enter to keep current info:\n");
 
     // Updating Diagnosis
     printf("Diagnosis [%s]: ", patient->diagnosis);
