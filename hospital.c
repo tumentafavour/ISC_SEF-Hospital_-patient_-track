@@ -56,3 +56,28 @@ printf("Login failed. Try again.\n");
 return 0;
 }
 }
+//function to create a new patient
+Patient newPatient() {
+    Patient patient;
+    printf("Enter patient ID: ");
+    scanf("%d", &patient.id);
+    printf("Enter patient name: ");
+    scanf("%s", patient.name);
+    printf("Enter patient age: ");
+    scanf("%d", &patient.age);
+    printf("Enter diagnosis: ");
+    scanf("%s", patient.diagnosis);
+    strcpy(patient.status, "Admitted"); // Default status
+    return patient;
+}
+//function to search for a patient by ID
+void searchbyID() {
+    int id;
+    printf("Enter patient ID to search: ");
+    scanf("%d", &id);
+    FILE *fp = fopen("patients.dat", "rb");
+    if (fp == NULL) {
+        printf("Error opening file\n");
+        return;
+    }
+}
