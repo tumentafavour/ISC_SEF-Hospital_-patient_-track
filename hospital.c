@@ -14,14 +14,21 @@ void displayMenu()
 
 //function to handle patient registration
 void registerPatient() {
-FILE *fp = fopen("patients.dat", "ab");
-if (fp == NULL)
-    { 
-        printf("Error opening file\n");
-        return;
-                
+FILE *fp = fopen("patients.dat", "ab"); //opens the file in append binary mode
+if (fp == NULL){
+         
+            printf("Error opening file\n");
+            return;
+            fclose(fp);    
             
-     }
+    
+             }
+             if (fwrite(&newPatient, sizeof(Patient), 1, fp) != 1){
+                fprintf(stderr, "Error writing to file\n");
+                fclose(fp);
+                return;
+
+             }
         
 
 }
