@@ -46,16 +46,30 @@ void registerPatient() {
 }
 
 
-
-// function to view all patients
+// Function to view all patient records
 void viewPatients() {
     FILE *fp = fopen("patients.dat", "rb");
     if (fp == NULL) {
-        printf("Error opening file\n");
+        printf("No patient records found.\n");
         return;
     }
+
+    Patient patient;
+    printf("\n--- All Patient Records ---\n");
+    // Read and display each record from the file 
+    while(fread(&patient, sizeof(Patient), 1, fp) == 1) {
+        printf("ID: %d, Name: %s, Age: %d, Diagnosis: %s, Status: %s, Doctor: %s\n", 
+               patient.id, patient.name, patient.age, patient.diagnosis, 
+               patient.status, patient.assignedDoctor.name);
+    }
+    fclose(fp);
 }
-       
+
+// Function to search for a patient by ID or name
+void searchPatient() {
+    // Search implementation as described in the flow overview 
+    printf("Search function is not yet fully implemented.\n");
+}
 
     
 //function for admin login
