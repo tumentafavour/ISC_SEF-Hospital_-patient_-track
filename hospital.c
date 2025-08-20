@@ -13,37 +13,39 @@ void displayMenu()
     printf("7. Save and Exit\n");
 }
 
-//function to handle patient registration
+
+// Function to handle patient registration
 void registerPatient() {
-FILE *fp = fopen("patients.dat", "ab"); //opens the file in append binary mode
-if (fp == NULL){
-         
-            printf("Error opening file\n");
-            return;   
-            }
-        
-         Patient newPatient;
-        //prompt patient details
-        printf("Enter patient name:\n");
-        scanf("%s\n", newPatient.name);
-        printf("Enter patient age:\n");
-        scanf("%d\n", &newPatient.age);
-        printf("Enter diagnosis");
-        scanf("%s\n", &newPatient.diagnosis);
-        //assign a default id and doctor 
-        // A more robust implementation would auto-increment the id 
-        newPatient.id = 1;
-        strcpy(newPatient.assignedDoctor.name, "Dr Yannick");
-        strcpy(newPatient.assignedDoctor.specialization, "General physician");
-        strcpy(newPatient.status, "admitted");// set initial status
-        // write the new patient record to the file
-        fwrite(&newPatient, sizeof(Patient), 1, fp);
-        fclose(fp);
-        printf("patient registered successfully");
+    FILE *fp = fopen("patients.dat", "ab");
+    if (fp == NULL) {
+        printf("Error opening file.\n");
+        return;
+    }
 
-        
+    Patient newPatient;
+    
+    // Prompt for patient details 
+    printf("Enter patient name: ");
+    scanf(" %[^\n]s", newPatient.name);
+    printf("Enter patient age: ");
+    scanf("%d", &newPatient.age);
+    printf("Enter diagnosis: ");
+    scanf(" %[^\n]s", newPatient.diagnosis);
+    
+    // Assign a default ID and doctor 
+    // A more robust implementation would auto-increment the ID
+    newPatient.id = 1; 
+    strcpy(newPatient.assignedDoctor.name, "Dr. Yannick");
+    strcpy(newPatient.assignedDoctor.specialization, "General Physician");
+    strcpy(newPatient.status, "Admitted"); // Set initial status 
 
+    // Write the new patient record to the file 
+    fwrite(&newPatient, sizeof(Patient), 1, fp);
+    fclose(fp);
+    printf("Patient registered successfully!\n");
 }
+
+
 
 // function to view all patients
 void viewPatients() {
