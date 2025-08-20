@@ -1,5 +1,6 @@
 #include "hospital.h"
 
+
 void displayMenu() 
 {
     printf("...Main Menu...\n");
@@ -18,17 +19,28 @@ FILE *fp = fopen("patients.dat", "ab"); //opens the file in append binary mode
 if (fp == NULL){
          
             printf("Error opening file\n");
-            return;
-            fclose(fp);    
-            
-    
-             }
-             if (fwrite(&newPatient, sizeof(Patient), 1, fp) != 1){
-                fprintf(stderr, "Error writing to file\n");
-                fclose(fp);
-                return;
+            return;   
+            }
+        
+         Patient newPatient;
+        //prompt patient details
+        printf("Enter patient name:\n");
+        scanf("%s\n", newPatient.name);
+        printf("Enter patient age:\n");
+        scanf("%d\n", &newPatient.age);
+        printf("Enter diagnosis");
+        scanf("%s\n", &newPatient.diagnosis);
+        //assign a default id and doctor 
+        // A more robust implementation would auto-increment the id 
+        newPatient.id = 1;
+        strcpy(newPatient.assignedDoctor.name, "Dr Yannick");
+        strcpy(newPatient.assignedDoctor.specialization, "General physician");
+        strcpy(newPatient.status, "admitted");// set initial status
+        // write the new patient record to the file
+        fwrite(&newPatient, sizeof(Patient), 1, fp);
+        fclose(fp);
+        printf("patient registered successfully");
 
-             }
         
 
 }
@@ -40,16 +52,10 @@ void viewPatients() {
         printf("Error opening file\n");
         return;
     }
-    
-    Patient patient;
-    while (fread(&patient, sizeof(Patient), 1, fp)) {
-        printf("ID: %d, Name: %s, Age: %d, Diagnosis: %s, Status: %s\n",
-               patient.id, patient.name, patient.age, patient.diagnosis, patient.status);
-    }
-    
-    fclose(fp);
 }
+       
 
+    
 //function for admin login
 int adminLogin() {
 char username[20], password[20];
@@ -63,20 +69,7 @@ printf("Login failed. Try again.\n");
 return 0;
 }
 }
-//function to create a new patient
-Patient newPatient() {
-    Patient patient;
-    printf("Enter patient ID: ");
-    scanf("%d", &patient.id);
-    printf("Enter patient name: ");
-    scanf("%s", patient.name);
-    printf("Enter patient age: ");
-    scanf("%d", &patient.age);
-    printf("Enter diagnosis: ");
-    scanf("%s", patient.diagnosis);
-    strcpy(patient.status, "Admitted"); // Default status
-    return patient;
-}
+
 //function to search for a patient by ID
 void searchbyID() {
     int id;
