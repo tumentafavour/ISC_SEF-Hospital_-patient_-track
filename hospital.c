@@ -9,8 +9,7 @@ void displayMenu()
     printf("3. Search by ID\n");
     printf("4. Update patient info\n");
     printf("5. Discharge patient\n");
-    printf("6. Enter your option");
-    printf("7. Save and Exit\n");
+    printf("6. Save and Exit\n");
 }
 
 
@@ -79,7 +78,7 @@ printf("Enter admin username: ");
 scanf("%s", username);
 printf("Enter password: ");
 scanf("%s", password);
-if (strcmp(username, "admin") == 0 && strcmp(password, "1234") == 0)
+if (strcmp(username, "ispark") == 0 && strcmp(password, "1234") == 0)
 return 1;else {
 printf("Login failed. Try again.\n");
 return 0;
@@ -87,13 +86,107 @@ return 0;
 }
 
 //function to search for a patient by ID
-void searchbyID() {
-    int id;
-    printf("Enter patient ID to search: ");
-    scanf("%d", &id);
+
+void searchbyID(int id) {
     FILE *fp = fopen("patients.dat", "rb");
     if (fp == NULL) {
-        printf("Error opening file\n");
+        printf("No patient records found.\n");
+        return;
+    
+    
+    }
+
+        printf("Enter patient ID to search: ");
+    scanf("%d", &id);
+
+    Patient patient;
+    while (fread(&patient, sizeof(Patient), 1, fp) == 1) {
+        if (patient.id == id) {
+            printf("Patient found:\n");
+            printf("ID: %d, Name: %s, Age: %d, Diagnosis: %s, Status: %s, Doctor: %s\n", patient.id, patient.name, patient.age, patient.diagnosis, patient.status, patient.assignedDoctor.name);
+            fclose(fp);
+            return;
+        }
+    }
+
+    printf("Patient with ID %d not found.\n", id);
+    fclose(fp);
+}
+
+void updatePatientInfo() {
+    FILE *fp = fopen("patients.dat", "rb+");
+    if (fp == NULL) {
+        printf("No patient records found.\n");
         return;
     }
+
+    Patient patient;
+    int id;
+    char name[50];
+    
+
+    printf("Enter patient ID to update: ");
+    scanf("%d", &id);
+    
+
+    // Find the patient record
+    while (fread(&patient, sizeof(Patient), 1, fp) == 1) {
+        if (patient.id == id) {
+            printf("Patient found:\n");
+            printf("ID: %d, Name: %s, Age: %d, Diagnosis: %s, Status: %s, Doctor: %s\n", patient.id, patient.name, patient.age, patient.diagnosis, patient.status, patient.assignedDoctor.name);
+
+            // Update patient information
+            printf("Enter new patient name: ");
+            scanf(" %[^\n]s", patient.name);
+            printf("Enter new patient age: ");
+            scanf("%d", &patient.age);
+            printf("Enter new diagnosis: ");
+            scanf(" %[^\n]s", patient.diagnosis);
+
+            // Update the record
+            fseek(fp, -sizeof(Patient), SEEK_CUR);
+            fwrite(&patient, sizeof(Patient), 1, fp);
+            fclose(fp);
+            printf("Patient record updated successfully!\n");
+            return;
+        }
+    }
+
+    printf("Patient with ID %d not found.\n", id);
+    fclose(fp);
 }
+void dischargePatient() {
+    FILE *fp = fopen("patients.dat", "rb+");
+    if (fp == NULL) {
+        printf("No patient records found.\n");
+        return;
+    }
+
+    Patient patient;
+    int id;
+
+    printf("Enter patient ID to discharge: ");
+    scanf("%d", &id);
+
+    // Find the patient record
+    while (fread(&patient, sizeof(Patient), 1, fp) == 1) {
+        if (patient.id == id) {
+            printf("Patient found:\n");
+            printf("ID: %d, Name: %s, Age: %d, Diagnosis: %s, Status: %s, Doctor: %s\n", patient.id, patient.name, patient.age, patient.diagnosis, patient.status, patient.assignedDoctor.name);
+
+            // Discharge the patient
+            strcpy(patient.status, "Discharged");
+
+            // Update the record
+            fseek(fp, -sizeof(Patient), SEEK_CUR);
+            fwrite(&patient, sizeof(Patient), 1, fp);
+            fclose(fp);
+            printf("Patient discharged successfully!\n");
+            return;
+        }
+    }
+
+    printf("Patient with ID %d not found.\n", id);
+    fclose(fp);
+}
+

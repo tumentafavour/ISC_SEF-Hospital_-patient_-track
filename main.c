@@ -22,10 +22,10 @@ do {
              searchbyID(); // Function to be implemented
             break;
             case 4:
-             //updatePatientInfo(); // Function to be implemented
+             updatePatientInfo(); // Function to be implemented
             break;
             case 5:
-            //dischargePatient(); // Function to be implemented
+            dischargePatient(); // Function to be implemented
             break;
             case 6:
             printf("Exiting...\n");
