@@ -15,7 +15,7 @@ void displayMenu()
 
 // Function to handle patient registration
 void registerPatient() {
-    FILE *fp = fopen("patients.dat", "ab");
+    FILE *fp = fopen("patients.dat", "ab+");
     if (fp == NULL) {
         printf("Error opening file.\n");
         return;
