@@ -22,6 +22,7 @@ void registerPatient() {
     }
 
     Patient newPatient;
+    Patient tempPatient;
     
     // Prompt for patient details 
     printf("Enter patient name: ");
@@ -33,10 +34,38 @@ void registerPatient() {
     
     // Assign a default ID and doctor 
     // A more robust implementation would auto-increment the ID
-    newPatient.id = 1; 
+
+ 
+    
+
+    // Determine the next available ID
+    int maxId = 0;
+    
+    // Seek to the beginning of the file to read existing records
+    fseek(fp, 0, SEEK_SET);
+
+    // Read all existing patient records to find the maximum ID
+    while (fread(&tempPatient, sizeof(Patient), 1, fp) == 1) {
+        if (tempPatient.id > maxId) {
+            printf("it worked\n");
+            maxId = tempPatient.id;
+        
+        }
+    }
+     newPatient.id = maxId + 1; //assigns the next available id
+     
+    
+
+
+
     strcpy(newPatient.assignedDoctor.name, "Dr. Yannick");
     strcpy(newPatient.assignedDoctor.specialization, "General Physician");
     strcpy(newPatient.status, "Admitted"); // Set initial status 
+    
+    {
+        
+    }
+    
 
     // Write the new patient record to the file 
     fwrite(&newPatient, sizeof(Patient), 1, fp);
@@ -64,7 +93,7 @@ void viewPatients() {
     fclose(fp);
 }
 
-// Function to search for a patient by ID or name
+// Function to search for a patient by ID 
 void searchPatient() {
     // Search implementation as described in the flow overview 
     printf("Search function is not yet fully implemented.\n");
